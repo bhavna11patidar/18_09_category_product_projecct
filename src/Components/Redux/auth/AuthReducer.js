@@ -19,6 +19,17 @@ const authReducer=(state=initialState, action)=>{
                 error_msg:action.payload,
                 success_msg:null,
             }
+        case "ON_LOGIN_SUCCESS":
+            return{
+                ...state,
+                user:action.payload,
+                isLoggedIn:true,
+            }
+        case "ON_LOGIN_FAILURE":
+            return{
+                ...state,
+                error_msg:action.payload,
+            }
         default:
             return {...state}
     }
