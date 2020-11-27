@@ -29,7 +29,7 @@ export const onLogin=(user, history)=>{
                 //console.log(token);
                 const decoded=jwtDecode(token);
                // console.log(decoded);
-               localStorage.setItem("user",decoded);
+               localStorage.setItem("user",token);
                setAuthToken(token);
                dispatch(onLoginSuccess(decoded));
                history.push('/dashboard');
@@ -38,8 +38,8 @@ export const onLogin=(user, history)=>{
             }
         })
         .catch(err=>{
-            console.log(err.response.data.msg);
-            dispatch(onLoginFailure(err.response.data.msg));
+            console.log(err);
+            //dispatch(onLoginFailure(err.response.data.msg));
         })
     }
 }

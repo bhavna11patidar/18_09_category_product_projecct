@@ -4,14 +4,45 @@ import {Provider} from 'react-redux';
 import Login from './Components/script/Login';
 import Registration from './Components/script/Registration';
 import Dashboard from './Components/script/Dashboard/Dashboard';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Switch, Redirect, withRouter} from 'react-router-dom';
+import PageNotFound from './Components/script/PageNotFound';
+import PrivateRoute from './Components/reusable/PrivateRoute';
+import PublicRoute from './Components/reusable/PublicRoute';
+
+import setAuthToken from './Components/utilities/setAuthToken';
+import {onLoginSuccess} from './Components/Redux/auth/AuthAction';
+import jwdDecode from "jwt-decode";
+import Header from './Components/script/Dashboard/Header';
 function App() {
+  
+  const token=localStorage.getItem("user");
+  if(token){
+    setAuthToken(token);
+    const decoded=jwdDecode(token);
+    store.dispatch(onLoginSuccess(decoded));
+  }
+
+
+const Main=withRouter(({location})=>{
+    return(
+      <div>
+      {location.pathname!="/" && location.pathname!="/register" && <Header/>}
+      <Switch>
+      <PublicRoute exact path="/" component={Login}/>
+      <PublicRoute exact path="/register" component={Registration}/>
+      <PrivateRoute exact path="/dashboard" component={Dashboard}/>
+      <PublicRoute exact path="/404" component={PageNotFound}/>
+      <Redirect to="/404"/>
+      </Switch>
+      </div>
+    )
+})
+
+
   return (
     <Provider store={store}>
     <Router>
-      <Route exact path="/" component={Login}/>
-      <Route exact path="/register" component={Registration}/>
-      <Route exact path="/dashboard" component={Dashboard}/>
+      <Main></Main>
     </Router>
     </Provider>
   );
