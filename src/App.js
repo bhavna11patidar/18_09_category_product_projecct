@@ -13,6 +13,7 @@ import setAuthToken from './Components/utilities/setAuthToken';
 import {onLoginSuccess} from './Components/Redux/auth/AuthAction';
 import jwdDecode from "jwt-decode";
 import Header from './Components/script/Dashboard/Header';
+import AddCategory from './Components/script/Dashboard/Category/AddCategory';
 function App() {
   
   const token=localStorage.getItem("user");
@@ -31,6 +32,7 @@ const Main=withRouter(({location})=>{
       <PublicRoute exact path="/" component={Login}/>
       <PublicRoute exact path="/register" component={Registration}/>
       <PrivateRoute exact path="/dashboard" component={Dashboard}/>
+      <PrivateRoute exact path="/add-category" component={AddCategory}/>
       <PublicRoute exact path="/404" component={PageNotFound}/>
       <Redirect to="/404"/>
       </Switch>
