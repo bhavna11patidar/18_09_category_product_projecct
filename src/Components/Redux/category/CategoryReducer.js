@@ -2,6 +2,7 @@ const initialState={
     category:{},
     error_msg:null,
     success_msg:null,
+    data_state:"NOT_INITIALIZED"
 }
 const categoryReducer=(state=initialState, action)=>{
     switch(action.type){
@@ -14,6 +15,23 @@ const categoryReducer=(state=initialState, action)=>{
             return{
                 ...state,
                 error_msg:action.payload,
+            }
+        case "ON_FETCH_SUCCESS":
+            return {
+                ...state,
+                category:action.payload,
+                data_state:'FETCHED_SUCCESS',
+            }
+        case "ON_FETCH_FAILURE":
+            return {
+                ...state,
+                error_msg:action.payload,
+                data_state:'FETCHED_FAILURE',
+            }
+        case "ON_FETCHING":
+            return {
+                ...state,
+                data_state:"FETCHING",
             }
         default:
             return {...state}
