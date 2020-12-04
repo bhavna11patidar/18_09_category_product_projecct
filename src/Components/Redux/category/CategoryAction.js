@@ -36,6 +36,24 @@ export const onFetchCategory=()=>{
     }
 }
 
+
+export const onDeleteCategory=(id)=>{
+    return (dispatch)=>{
+       return  axios.get("http://localhost:5000/deleteCategory/"+id)
+        .then(res=>{
+            if(res.status==200){
+                return true;
+            }else{
+                return false;
+            }
+        })
+        .catch(err=>{
+            console.log(err);
+            return false;
+        })
+    }
+}
+
 export const onAddSuccess=(msg)=>{
     return {
         type:"ADD_SUCCESS",
