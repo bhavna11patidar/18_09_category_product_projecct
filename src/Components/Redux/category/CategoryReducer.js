@@ -33,6 +33,16 @@ const categoryReducer=(state=initialState, action)=>{
                 ...state,
                 data_state:"FETCHING",
             }
+        case "UPDATE_SUCCESS":
+            return {
+                ...state,
+                success_msg:action.payload
+            }
+        case "UPDATE_FAILURE":
+            return {
+                ...state,
+                error_msg:action.payload,
+            }
         default:
             return {...state}
     }

@@ -54,6 +54,41 @@ export const onDeleteCategory=(id)=>{
     }
 }
 
+export const getSingleCategory=(id)=>{
+    return (dispatch)=>{
+        return axios.get("http://localhost:5000/editCategory/"+id)
+        .then(res=>{
+            console.log(res);
+            return res.data;
+        })
+        .catch(err=>{
+            console.log(err);
+            return false;
+        })
+    }
+}
+
+export const onUpdateCategory=(data,history)=>{
+    //console.log(data);
+    return (dispatch)=>{
+        axios.post("http://localhost:5000/updateCategory", data)
+        .then(res=>{
+            //console.log(res);
+            if(res.status==200){
+            dispatch(onUpdateSuccess(res.data.msg));
+            history.push("/view-category");
+            }else{
+                dispatch(onUpdateFailure(res.data.msg));
+            }
+        })
+        .catch(err=>{
+            //console.log(err);
+            dispatch(onUpdateFailure(err.response.msg));
+        })
+}
+}
+
+
 export const onAddSuccess=(msg)=>{
     return {
         type:"ADD_SUCCESS",
@@ -84,5 +119,19 @@ export const onFetchFailure=(msg)=>{
 export const onFetching=()=>{
     return{
         type:"ON_FETCHING"
+    }
+}
+
+export const onUpdateSuccess=(msg)=>{
+    return {
+        type:"UPDATE_SUCCESS",
+        payload:msg
+    }
+}
+
+export const onUpdateFailure=(msg)=>{
+    return {
+        type:"UPDATE_FAILURE",
+        payload:msg
     }
 }

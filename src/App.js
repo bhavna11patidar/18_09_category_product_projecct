@@ -15,6 +15,7 @@ import jwdDecode from "jwt-decode";
 import Header from './Components/script/Dashboard/Header';
 import AddCategory from './Components/script/Dashboard/Category/AddCategory';
 import ViewCategory from './Components/script/Dashboard/Category/ViewCategory';
+import EditCategory from './Components/script/Dashboard/Category/EditCategory';
 function App() {
   
   const token=localStorage.getItem("user");
@@ -35,6 +36,7 @@ const Main=withRouter(({location})=>{
       <PrivateRoute exact path="/dashboard" component={Dashboard}/>
       <PrivateRoute exact path="/add-category" component={AddCategory}/>
       <PrivateRoute exact path="/view-category" component={ViewCategory}/>
+      <PrivateRoute exact path="/edit-category/:id" component={EditCategory}/>
       <PublicRoute exact path="/404" component={PageNotFound}/>
       <Redirect to="/404"/>
       </Switch>
