@@ -17,6 +17,7 @@ import AddCategory from './Components/script/Dashboard/Category/AddCategory';
 import ViewCategory from './Components/script/Dashboard/Category/ViewCategory';
 import EditCategory from './Components/script/Dashboard/Category/EditCategory';
 import AddProduct from './Components/script/Dashboard/Product/AddProduct';
+import ViewProduct from './Components/script/Dashboard/Product/ViewProduct';
 function App() {
   
   const token=localStorage.getItem("user");
@@ -39,6 +40,7 @@ const Main=withRouter(({location})=>{
       <PrivateRoute exact path="/view-category" component={ViewCategory}/>
       <PrivateRoute exact path="/edit-category/:id" component={EditCategory}/>
       <PrivateRoute excat path="/add-product" component={AddProduct}/>
+      <PrivateRoute excat path="/view-product" component={ViewProduct}/>
       <PublicRoute exact path="/404" component={PageNotFound}/>
       <Redirect to="/404"/>
       </Switch>

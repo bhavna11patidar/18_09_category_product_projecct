@@ -8,15 +8,19 @@ import {
     NavItem,
   } from 'reactstrap';
 
-import {Link} from 'react-router-dom';
-
-export default class Header extends Component {
+import {Link, withRouter} from 'react-router-dom';
+import {onLogout} from './../../Redux/auth/AuthAction';
+import {connect} from 'react-redux'; 
+class Header extends Component {
     constructor(props){
         super();
         this.state={isOpen:false};
     }
     toggle = () => {
         this.setState({isOpen:true});
+    }
+    logout=()=>{
+        this.props.onLogout(this.props.history);
     }
     render() {
         const {isOpen}=this.state;
@@ -42,6 +46,9 @@ export default class Header extends Component {
                   <NavItem>
                     <Link className="nav-link" to="/view-product">View Product</Link>
                   </NavItem>
+                  <NavItem>
+                      <button className="btn btn-warning" onClick={this.logout}>Logout</button>
+                  </NavItem>
                 </Nav>
               </Collapse>
             </Navbar>
@@ -49,3 +56,6 @@ export default class Header extends Component {
         )
     }
 }
+
+
+export default connect(null, {onLogout})(withRouter(Header));

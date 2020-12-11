@@ -30,6 +30,12 @@ const authReducer=(state=initialState, action)=>{
                 ...state,
                 error_msg:action.payload,
             }
+        case "ON_LOGOUT_SUCCESS":
+            return {
+                ...state,
+                user:{},
+                isLoggedIn:false,
+            }
         default:
             return {...state}
     }

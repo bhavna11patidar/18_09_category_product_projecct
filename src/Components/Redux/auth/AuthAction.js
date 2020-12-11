@@ -23,7 +23,7 @@ export const onLogin=(user, history)=>{
     return (dispatch)=>{
         axios.post("http://localhost:5000/login",user)
         .then((res)=>{
-            console.log(res);
+           // console.log(res);
             if(res.status==200){
                 const {token}=res.data;
                 //console.log(token);
@@ -41,6 +41,15 @@ export const onLogin=(user, history)=>{
             console.log(err);
             //dispatch(onLoginFailure(err.response.data.msg));
         })
+    }
+}
+
+export const onLogout=(history)=>{
+    return (dispatch)=>{
+        localStorage.removeItem("user");
+        setAuthToken();
+        dispatch(onLogoutSuccess());
+        history.push('/');
     }
 }
 
@@ -68,5 +77,11 @@ export const onLoginFailure=(msg)=>{
     return {
         type:"ON_LOGIN_FAILURE",
         payload:msg,
+    }
+}
+
+export const onLogoutSuccess=()=>{
+    return {
+        type:"ON_LOGOUT_SUCCESS",
     }
 }

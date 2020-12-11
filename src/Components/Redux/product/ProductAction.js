@@ -26,6 +26,26 @@ export const onAddProduct=(data)=>{
 }
 }
 
+
+export const onFetchProduct=()=>{
+    return (dispatch)=>{
+        dispatch(onFetching());
+        axios.get("http://localhost:5000/viewProduct")
+        .then(res=>{
+            if(res.status==200){
+                dispatch(onFetchSuccess(res.data))
+            }else{
+                dispatch(onFetchFailure(res.data.msg))
+            }
+        })
+        .catch(err=>{
+            dispatch(onFetchFailure(err))
+        })
+    }
+}
+
+
+
 export const onAddSuccess=(msg)=>{
     return {
         type:"ADD_SUCCESS",
@@ -37,5 +57,24 @@ export const onAddFailure=(msg)=>{
     return {
         type:"ADD_FAILURE",
         payload:msg
+    }
+}
+
+export const onFetchSuccess=(res)=>{
+    return {
+        type:"ON_FETCH_SUCCESS",
+        payload:res
+    }
+}
+export const onFetchFailure=(msg)=>{
+    return {
+        type:"ON_FETCH_FAILURE",
+        payload:msg,
+    }
+}
+
+export const onFetching=()=>{
+    return{
+        type:"ON_FETCHING"
     }
 }
